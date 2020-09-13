@@ -4,8 +4,7 @@ version = "1.0.0"
 authors = ["Jesse Cooke <jesse@relativepath.io>"]
 edition = "2018"
 description = "Simple CLI to wake-on-LAN"
-license = "MIT"
-license_file = "LICENSE"
+license-file = "LICENSE"
 homepage = "https://github.com/jc00ke/hatty"
 repository = "https://github.com/jc00ke/hatty"
 
