@@ -37,6 +37,10 @@ impl Hatty {
             Err(e) => Err(e),
         }
     }
+
+    fn build_magic_packet(&self) -> Vec<u8> {
+        vec![255; 102]
+    }
 }
 
 impl From<Opt> for Hatty {
@@ -82,45 +86,15 @@ mod tests {
         assert_eq!(rbuf, b"hello");
         Ok(())
     }
-    //fn extend_mac_test() {
-    //let mac = vec![0x01, 0x02, 0x03, 0x04, 0x05, 0x06];
 
-    //let extended_mac = Hatty::extend_mac(&mac);
-
-    //assert_eq!(extended_mac.len(), MAC_PER_MAGIC * MAC_SIZE);
-    //assert_eq!(&extended_mac[(MAC_PER_MAGIC - 1) * MAC_SIZE..], &mac[..]);
-    //}
-
-    //#[test]
-    //fn mac_to_byte_test() {
-    //let mac = "01:02:03:04:05:06";
-    //let result = super::WolPacket::mac_to_byte(mac, ':');
-
-    //assert_eq!(result, vec![0x01, 0x02, 0x03, 0x04, 0x05, 0x06]);
-    //}
-
-    //#[test]
-    //#[should_panic]
-    //fn mac_to_byte_invalid_chars_test() {
-    //let mac = "ZZ:02:03:04:05:06";
-    //super::WolPacket::mac_to_byte(mac, ':');
-    //}
-
-    //#[test]
-    //#[should_panic]
-    //fn mac_to_byte_invalid_separator_test() {
-    //let mac = "01002:03:04:05:06";
-    //super::WolPacket::mac_to_byte(mac, ':');
-    //}
-
-    //#[test]
-    //fn create_packet_bytes_test() {
-    //let bytes = super::WolPacket::create_packet_bytes(&[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]);
-
-    //assert_eq!(
-    //bytes.len(),
-    //super::MAC_SIZE * super::MAC_PER_MAGIC + super::HEADER.len()
-    //);
-    //assert!(bytes.iter().all(|&x| x == 0xFF));
-    //}
+    #[test]
+    fn build_magic_packet_test() {
+        let hatty = Hatty {
+            mac: "18-C0-4D-42-2D-EA".parse().unwrap(),
+            dest: "127.0.0.1:7896".parse().unwrap(),
+        };
+        let magic_packet = hatty.build_magic_packet();
+        assert_eq!(magic_packet.len(), 102);
+        assert_eq!(&magic_packet[..6], vec![255; 6].as_slice());
+    }
 }
