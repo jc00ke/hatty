@@ -70,9 +70,7 @@ impl From<Opt> for Hatty {
 
 fn main() {
     let opt = Opt::from_args();
-    println!("{:?}", opt);
     let hatty: Hatty = opt.into();
-    println!("{:?}", hatty);
     hatty.send_magic_packet().unwrap();
 }
 
