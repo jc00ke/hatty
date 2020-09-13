@@ -34,6 +34,7 @@ struct Hatty {
 impl Hatty {
     pub fn send_magic_packet(&self) -> std::io::Result<()> {
         let socket = UdpSocket::bind("0.0.0.0:0")?;
+        socket.set_broadcast(true)?;
         match socket.send_to(self.build_magic_packet().as_slice(), self.dest) {
             Ok(nbytes) if nbytes == PACKET_SIZE => Ok(()),
             Ok(nbytes) => Err(io::Error::new(
