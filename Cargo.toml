@@ -1,6 +1,6 @@
 [package]
 name = "hatty"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Jesse Cooke <jesse@relativepath.io>"]
 edition = "2018"
 description = "Simple CLI to wake-on-LAN"
