@@ -95,6 +95,8 @@ mod tests {
         };
         let magic_packet = hatty.build_magic_packet();
         assert_eq!(magic_packet.len(), 102);
-        assert_eq!(&magic_packet[..6], vec![255; 6].as_slice());
+        let (fs, _macs) = magic_packet.split_at(6);
+        assert_eq!(fs, vec![255; 6].as_slice());
+        //std::iter::repeat()
     }
 }
