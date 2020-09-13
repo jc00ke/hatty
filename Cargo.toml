@@ -1,8 +1,13 @@
 [package]
-name = "wol"
+name = "hatty"
 version = "0.1.0"
 authors = ["Jesse Cooke <jesse@relativepath.io>"]
 edition = "2018"
+description = "Simple CLI to wake-on-LAN"
+license = "MIT"
+license_file = "LICENSE"
+homepage = "https://github.com/jc00ke/hatty"
+repository = "https://github.com/jc00ke/hatty"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
