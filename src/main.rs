@@ -13,7 +13,7 @@ const PACKET_SIZE: usize = HEADER.len() + MAC_PER_MAGIC * MAC_SIZE;
 
 #[derive(StructOpt, Debug)]
 #[structopt(
-    name = "wol",
+    name = "hatty",
     about = "A little helper to wake up a computer using a magic packet",
     setting = structopt::clap::AppSettings::DeriveDisplayOrder
 )]
