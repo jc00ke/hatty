@@ -2,8 +2,13 @@
 use macaddr::MacAddr6;
 use std::fmt::Debug;
 use std::io;
+use std::iter;
 use std::net::{Ipv4Addr, SocketAddr, UdpSocket};
 use structopt::StructOpt;
+
+const MAC_SIZE: usize = 6;
+const MAC_PER_MAGIC: usize = 16;
+static HEADER: [u8; 6] = [0xFF; 6];
 
 #[derive(StructOpt, Debug)]
 #[structopt(
@@ -39,7 +44,16 @@ impl Hatty {
     }
 
     fn build_magic_packet(&self) -> Vec<u8> {
-        vec![255; 102]
+        let mut packet = Vec::with_capacity(HEADER.len() + MAC_SIZE * MAC_PER_MAGIC);
+
+        let body: Vec<u8> = iter::repeat(self.mac.as_bytes())
+            .take(MAC_PER_MAGIC)
+            .flatten()
+            .cloned()
+            .collect();
+        packet.extend(HEADER.iter());
+        packet.extend(body);
+        packet
     }
 }
 
@@ -88,15 +102,25 @@ mod tests {
     }
 
     #[test]
-    fn build_magic_packet_test() {
+    fn build_magic_packet_test() -> std::io::Result<()> {
+        let mac_address: MacAddr6 = "18-C0-4D-42-2D-EA".parse().unwrap();
+        let mac_bytes: &[u8] = mac_address.as_bytes();
+
         let hatty = Hatty {
-            mac: "18-C0-4D-42-2D-EA".parse().unwrap(),
+            mac: mac_address,
             dest: "127.0.0.1:7896".parse().unwrap(),
         };
         let magic_packet = hatty.build_magic_packet();
         assert_eq!(magic_packet.len(), 102);
-        let (fs, _macs) = magic_packet.split_at(6);
-        assert_eq!(fs, vec![255; 6].as_slice());
-        //std::iter::repeat()
+        let (fs, macs) = magic_packet.split_at(MAC_SIZE);
+        assert_eq!(fs, vec![255; MAC_SIZE].as_slice());
+
+        let ms: Vec<u8> = iter::repeat(mac_bytes)
+            .take(MAC_PER_MAGIC)
+            .flatten()
+            .cloned()
+            .collect();
+        assert_eq!(macs, &ms[..]);
+        Ok(())
     }
 }
