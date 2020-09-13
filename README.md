@@ -44,3 +44,5 @@ wake-on-lan -> wol -> wooly -> wooly bully -> HATTY TOLD MATTY
 
 * [Wikipedia](https://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet)
 * [wakey](https://github.com/LesnyRumcajs/wakey)
+
+Thanks to [Jacob Rothstein](https://jbr.me/) for coaching me through this!
