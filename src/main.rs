@@ -26,10 +26,6 @@ struct Hatty {
 }
 
 impl Hatty {
-    pub fn new(mac: MacAddr6, dest: SocketAddr) -> Self {
-        Self { mac, dest }
-    }
-
     pub fn send_magic_packet(&self) -> std::io::Result<()> {
         let socket = UdpSocket::bind("0.0.0.0:0")?;
         match socket.send_to(b"hello", self.dest) {
@@ -73,10 +69,10 @@ mod tests {
         let mut buf = [0; 102];
 
         let handle = std::thread::spawn(move || {
-            let hatty = Hatty::new(
-                "18-C0-4D-42-2D-EA".parse().unwrap(),
-                listen.parse().unwrap(),
-            );
+            let hatty = Hatty {
+                mac: "18-C0-4D-42-2D-EA".parse().unwrap(),
+                dest: listen.parse().unwrap(),
+            };
             hatty.send_magic_packet()
         });
 

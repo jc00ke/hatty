@@ -20,3 +20,15 @@ error
 > echo $?
 1
 ```
+
+## Debugging
+
+```
+> sudo netcat -ul 9
+```
+
+```
+> cargo run -- --mac 18-C0-4D-42-2D-EA --to 127.0.0.1
+```
+
+Then you should see something from `netcat`.
