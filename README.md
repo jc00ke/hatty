@@ -1,6 +1,6 @@
 # Hatty
 
-A little wake-on-lan utility
+A little wake-on-lan utility.
 
 ## Usage
 
@@ -32,3 +32,15 @@ error
 ```
 
 Then you should see something from `netcat`.
+
+## The Name
+
+```
+wake-on-lan -> wol -> wooly -> wooly bully -> HATTY TOLD MATTY
+```
+[Sam the Sham and the Pharaohs](https://www.youtube.com/watch?v=uE_MpQhgtQ8)
+
+## Resources & Inspiration
+
+* [Wikipedia](https://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet)
+* [wakey](https://github.com/LesnyRumcajs/wakey)
