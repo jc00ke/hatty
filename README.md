@@ -40,6 +40,15 @@ wake-on-lan -> wol -> wooly -> wooly bully -> HATTY TOLD MATTY
 ```
 [Sam the Sham and the Pharaohs](https://www.youtube.com/watch?v=uE_MpQhgtQ8)
 
+## Compiling for the Raspberry Pi
+
+```
+> sudo apt install gcc-arm-linux-gnueabihf
+> rustup target add armv7-unknown-linux-gnueabihf
+> cargo build --release --target armv7-unknown-linux-gnueabihf
+> stat target/armv7-unknown-linux-gnueabihf/release/hatty
+```
+
 ## Resources & Inspiration
 
 * [Wikipedia](https://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet)
